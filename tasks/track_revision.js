@@ -32,19 +32,17 @@ module.exports = function(grunt) {
     options.revision = this.data.revision || this.data.branch || this.data.tag || 'master';
     options.origin = this.data.origin || 'origin';
 
-
+    grunt.log.debug(options);
     if (!options.repo) {
-      grunt.fail.warn("Repo was not specified!");
+      grunt.fail.warn("repo was not specified!");
       return false;
     }
     if (!options.dir) {
-      grunt.fail.warn("Dir was not specified!");
+      grunt.fail.warn("dir was not specified!");
       return false;
     }
 
     options.dir = path.resolve(options.dir);
-    console.log(options);
-
 
     var work_tree = '--work-tree='+options.dir;
 
