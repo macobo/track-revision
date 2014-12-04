@@ -30,21 +30,12 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     track_revision: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
+      // default_options: {
+      // },
       custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+        dir: 'tmp/test',
+        repo: 'https://github.com/macobo/track-revision.git',
+        revision: '349d15a706d234434025b8ba467908e492d46329'
       }
     },
 
