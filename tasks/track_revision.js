@@ -11,12 +11,21 @@ var shell = require('shelljs');
 var path = require('path');
 
 module.exports = function(grunt) {
+  function check(command, done) {
+    grunt.log.writeln('').writeln(("Running '"+command+"'").cyan);
+    var ret = shell.exec(command);
+    grunt.log.debug(ret);
 
-  // Please see the Grunt documentation fo;r more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    if (ret.code !== 0) {
+      grunt.fail.warn(ret.output);
+      done(false);
+    }
+  }
 
   grunt.registerMultiTask('track_revision', 'Clone and checkout a revision from another repo', function() {
     // Merge task-specific and/or target-specific options with these defaults.
+    var done = this.async();
+
     var options = {};
     options.dir = this.data.dir; // output
     options.repo = this.data.repo;
@@ -38,19 +47,15 @@ module.exports = function(grunt) {
 
 
     var work_tree = '--work-tree='+options.dir;
-    var commands = [
-      'git clone ' + options.repo + ' ' + options.dir,
-      'git ' + work_tree + ' checkout ' + options.revision
-      // { cmd: 'git', args: ['clone', options.repo, options.dir] },
-      // { cmd: 'git', args: ['checkout', options.revision], opts: { cwd: options.dir } },
 
-    ];
+    if (grunt.file.isDir(options.dir)) {
+      check('git fetch '+options.origin);
+    } else {
+      check('git clone ' + options.repo + ' ' + options.dir);
+    }
+    check('cd '+options.dir+'; git ' + work_tree + ' checkout ' + options.revision);
 
-    commands.forEach(function(command) {
-      var ret = shell.exec(command);
-      console.log(command, ret);
-    });
-
+    done();
   });
 
 };

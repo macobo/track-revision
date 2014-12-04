@@ -25,12 +25,14 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp']
+      tests: []
     },
 
     // Configuration to be run (and then tested).
     track_revision: {
-      // default_options: {
+      // failed_options: {
+      //   dir: 'tmp/test_fail',
+      //   repo: 'thisdoesnotexist',
       // },
       custom_options: {
         dir: 'tmp/test',
@@ -56,7 +58,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'track_revision', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'track_revision']);//, 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
