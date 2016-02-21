@@ -1,7 +1,7 @@
 {
   "name": "grunt-track-revision",
   "description": "Clone and checkout a revision from another repo",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "homepage": "https://github.com/macobo/track-revision",
   "author": {
     "name": "Karl-Aksel Puulmann",
